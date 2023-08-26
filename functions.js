@@ -16,7 +16,7 @@ function Node(data) {
   };
 }
 
-function Tree() {
+export default function Tree() {
   let root;
   // returns the root node of a tree
 
