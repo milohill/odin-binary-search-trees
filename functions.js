@@ -1,13 +1,3 @@
-const prettyPrint = (node, prefix = '', isLeft = true) => {
-  if (node.right !== null) {
-    prettyPrint(node.right, `${prefix}${isLeft ? '│   ' : '    '}`, false);
-  }
-  console.log(`${prefix}${isLeft ? '└── ' : '┌── '}${node.data}`);
-  if (node.left !== null) {
-    prettyPrint(node.left, `${prefix}${isLeft ? '    ' : '│   '}`, true);
-  }
-};
-
 function Node(data) {
   return {
     data,
@@ -16,7 +6,7 @@ function Node(data) {
   };
 }
 
-export default function Tree() {
+module.exports = function Tree() {
   let root;
   // returns the root node of a tree
 
@@ -25,6 +15,8 @@ export default function Tree() {
     if (array.length <= 1) {
       const newNode = Node(array.pop());
       return newNode.data ? newNode : null;
+      // if the length of the array is 0 then the data of the new node should return undefined
+      // hence return null
     }
 
     const midIndex = Math.floor((array.length - 1) / 2);
@@ -57,23 +49,8 @@ export default function Tree() {
     }
   };
 
-  const delete = (value, curNode = root) => {
-
-  }
-
   return {
     buildTree,
     insert,
-    delete
-  }
-}
-
-const arr = [1, 23, 3, 324, 4, 4, 5, 6345, 67, 7, 7, 8, 9, 9].sort(
-  (a, b) => a - b
-);
-
-const mainTree = Tree();
-const temp = mainTree.buildTree(arr);
-mainTree.insert(233);
-prettyPrint(temp);
-console.log(temp);
+  };
+};
