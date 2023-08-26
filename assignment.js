@@ -17,7 +17,8 @@ function Node(data) {
 }
 
 function Tree() {
-  let head; // a reference for the head to be utilized for few functions below
+  let root;
+  // returns the root node of a tree
 
   const buildTree = (array) => {
     // base
@@ -31,12 +32,12 @@ function Tree() {
     newNode.left = buildTree(array.slice(0, midIndex));
     newNode.right = buildTree(array.slice(midIndex + 1));
 
-    head = newNode; // assign the head
+    root = newNode; // assign the head
 
     return newNode;
   };
 
-  const insert = (value, curNode = head) => {
+  const insert = (value, curNode = root) => {
     if (!curNode) return; // if the head has not been assigned yet
 
     if (value === curNode.data) return; // prevent duplicate values
@@ -56,7 +57,7 @@ function Tree() {
     }
   };
 
-  const delete = (value, curNode = head) => {
+  const delete = (value, curNode = root) => {
 
   }
 
@@ -64,7 +65,7 @@ function Tree() {
     buildTree,
     insert,
     delete
-  };
+  }
 }
 
 const arr = [1, 23, 3, 324, 4, 4, 5, 6345, 67, 7, 7, 8, 9, 9].sort(
