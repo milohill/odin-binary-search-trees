@@ -8,6 +8,7 @@ function Node(data) {
 
 module.exports = function Tree() {
   const rootPointer = Node();
+  rootPointer.left = null;
   // returns the root node of a tree
 
   const getRoot = () => rootPointer.left;
@@ -97,11 +98,33 @@ module.exports = function Tree() {
     }
   };
 
+  const levelOrderByIteration = (root = getRoot()) => {
+    const queue = [];
+    const array = [];
+    queue.push(root);
+
+    while (queue.length !== 0) {
+      const temp = queue.shift();
+      if (temp.left) {
+        queue.push(temp.left);
+      }
+      if (temp.right) {
+        queue.push(temp.right);
+      }
+      array.push(temp.data);
+    }
+
+    return array;
+  };
+
+  const levelOrderByRecursion = (func) => levelOrderByRecursion();
+
   return {
     getRoot,
     buildTree,
     insertValue,
     deleteValue,
-    findValue,
+    levelOrderByIteration,
+    levelOrderByRecursion,
   };
 };
