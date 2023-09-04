@@ -81,10 +81,27 @@ module.exports = function Tree() {
     return root;
   };
 
+  const findValue = (value, root = getRoot()) => {
+    // if there's no value matching
+    if (root === null) {
+      return null;
+    }
+    if (root.data > value) {
+      return findValue(value, root.left);
+    }
+    if (root.data < value) {
+      return findValue(value, root.right);
+    }
+    if (root.data === value) {
+      return root;
+    }
+  };
+
   return {
     getRoot,
     buildTree,
     insertValue,
     deleteValue,
+    findValue,
   };
 };

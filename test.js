@@ -20,6 +20,7 @@ const refinedArr = [...new Set(testArr)];
 const bst = tree();
 bst.buildTree(refinedArr);
 bst.insertValue(2);
-bst.deleteValue(3);
+// bst.deleteValue(3);
+console.log(bst.findValue(6));
 
 prettyPrint(bst.getRoot());
