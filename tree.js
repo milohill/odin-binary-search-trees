@@ -114,6 +114,30 @@ module.exports = function Tree() {
     return array;
   };
 
+  const getInorder = (arr = [], root = getRoot()) => {
+    if (!root) return;
+    if (root.left) getInorder(arr, root.left);
+    arr.push(root.data);
+    if (root.right) getInorder(arr, root.right);
+    return arr;
+  };
+
+  const getPreorder = (arr = [], root = getRoot()) => {
+    if (!root) return;
+    arr.push(root.data);
+    if (root.left) getPreorder(arr, root.left);
+    if (root.right) getPreorder(arr, root.right);
+    return arr;
+  };
+
+  const getPostorder = (arr = [], root = getRoot()) => {
+    if (!root) return;
+    if (root.left) getPostorder(arr, root.left);
+    if (root.right) getPostorder(arr, root.right);
+    arr.push(root.data);
+    return arr;
+  };
+
   return {
     getRoot,
     buildTree,
@@ -121,5 +145,8 @@ module.exports = function Tree() {
     deleteValue,
     findValue,
     getLevelOrder,
+    getInorder,
+    getPreorder,
+    getPostorder,
   };
 };

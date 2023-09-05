@@ -19,7 +19,9 @@ const refinedArr = [...new Set(testArr)];
 
 const bst = tree();
 bst.buildTree(refinedArr);
-console.log(bst.getLevelOrderByIteration());
-console.log(bst.getLevelOrderByRecursion());
+console.log(bst.getInorder());
+console.log(bst.getPreorder());
+console.log(bst.getPostorder());
+
 
 prettyPrint(bst.getRoot());
