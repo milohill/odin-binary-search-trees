@@ -98,33 +98,28 @@ module.exports = function Tree() {
     }
   };
 
-  const levelOrderByIteration = (root = getRoot()) => {
+  const getLevelOrder = (root = getRoot()) => {
     const queue = [];
     const array = [];
     queue.push(root);
 
-    while (queue.length !== 0) {
-      const temp = queue.shift();
-      if (temp.left) {
-        queue.push(temp.left);
-      }
-      if (temp.right) {
-        queue.push(temp.right);
-      }
-      array.push(temp.data);
+    while (queue.length) {
+      const node = queue.shift();
+      if (node.left) queue.push(node.left);
+      if (node.right) queue.push(node.right);
+
+      array.push(node.data);
     }
 
     return array;
   };
-
-  const levelOrderByRecursion = (func) => levelOrderByRecursion();
 
   return {
     getRoot,
     buildTree,
     insertValue,
     deleteValue,
-    levelOrderByIteration,
-    levelOrderByRecursion,
+    findValue,
+    getLevelOrder,
   };
 };
