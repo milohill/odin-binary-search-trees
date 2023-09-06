@@ -13,15 +13,12 @@ const prettyPrint = (node, prefix = '', isLeft = true) => {
   }
 };
 
-const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324];
+const testArr = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 32, 10, 999, 87, 23, 12, 65, 90, 55];
 testArr.sort((a, b) => (a - b));
 const refinedArr = [...new Set(testArr)];
 
 const bst = tree();
 bst.buildTree(refinedArr);
-console.log(bst.getInorder());
-console.log(bst.getPreorder());
-console.log(bst.getPostorder());
-
+console.log(bst.getHeight());
 
 prettyPrint(bst.getRoot());

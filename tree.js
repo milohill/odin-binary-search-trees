@@ -138,6 +138,19 @@ module.exports = function Tree() {
     return arr;
   };
 
+  const getHeight = (num = 0, root = getRoot()) => {
+    if (!root) return num;
+
+    num += 1;
+    let numL;
+    let numR;
+
+    if (root.left) numL = getHeight(num, root.left);
+    if (root.right) numR = getHeight(num, root.right);
+
+    return (numL >= numR ? numL : numR) || num;
+  };
+
   return {
     getRoot,
     buildTree,
@@ -148,5 +161,6 @@ module.exports = function Tree() {
     getInorder,
     getPreorder,
     getPostorder,
+    getHeight,
   };
 };
