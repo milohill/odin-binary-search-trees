@@ -1,10 +1,4 @@
-function Node(data) {
-  return {
-    data,
-    left: null,
-    right: null,
-  };
-}
+const Node = require('./Node');
 
 module.exports = function Tree() {
   const rootPointer = Node();
@@ -114,41 +108,73 @@ module.exports = function Tree() {
     return array;
   };
 
-  const getInorder = (arr = [], root = getRoot()) => {
+  const getInorder = (root = getRoot(), arr = []) => {
     if (!root) return;
-    if (root.left) getInorder(arr, root.left);
+    if (root.left) getInorder(root.left, arr);
     arr.push(root.data);
-    if (root.right) getInorder(arr, root.right);
+    if (root.right) getInorder(root.right, arr);
     return arr;
   };
 
-  const getPreorder = (arr = [], root = getRoot()) => {
+  const getPreorder = (root = getRoot(), arr = []) => {
     if (!root) return;
     arr.push(root.data);
-    if (root.left) getPreorder(arr, root.left);
-    if (root.right) getPreorder(arr, root.right);
+    if (root.left) getPreorder(root.left, arr);
+    if (root.right) getPreorder(root.right, arr);
     return arr;
   };
 
-  const getPostorder = (arr = [], root = getRoot()) => {
+  const getPostorder = (root = getRoot(), arr = []) => {
     if (!root) return;
-    if (root.left) getPostorder(arr, root.left);
-    if (root.right) getPostorder(arr, root.right);
+    if (root.left) getPostorder(root.left, arr);
+    if (root.right) getPostorder(root.right, arr);
     arr.push(root.data);
     return arr;
   };
 
-  const getHeight = (num = 0, root = getRoot()) => {
+  const getHeight = (root = getRoot(), num = -1) => {
     if (!root) return num;
 
     num += 1;
     let numL;
     let numR;
 
-    if (root.left) numL = getHeight(num, root.left);
-    if (root.right) numR = getHeight(num, root.right);
+    if (root.left) numL = getHeight(root.left, num);
+    if (root.right) numR = getHeight(root.right, num);
 
     return (numL >= numR ? numL : numR) || num;
+  };
+
+  const getDepth = (node, root = getRoot(), num = -1) => {
+    if (!root) return num;
+
+    const rootValue = root.data;
+    const nodeValue = node.data;
+    num += 1;
+
+    if (rootValue > nodeValue) num = getDepth(node, root.left, num);
+    if (rootValue < nodeValue) num = getDepth(node, root.right, num);
+    if (rootValue === nodeValue) return num;
+    return num;
+  };
+
+  const getIsBalanced = (root = getRoot()) => {
+    if (!root) return true;
+
+    const leftHeight = getHeight(root.left); // when the node is null, it returns -1
+    const rightHeight = getHeight(root.right);
+    const result = Math.abs(leftHeight - rightHeight) <= 1;
+
+    return result && getIsBalanced(root.left) && getIsBalanced(root.right);
+  };
+
+  const rebalance = () => {
+    if (!getRoot()) return;
+
+    const arr = getInorder();
+    const newRoot = buildTree(arr);
+    rootPointer.left = newRoot;
+    return newRoot;
   };
 
   return {
@@ -162,5 +188,8 @@ module.exports = function Tree() {
     getPreorder,
     getPostorder,
     getHeight,
+    getDepth,
+    getIsBalanced,
+    rebalance,
   };
 };
